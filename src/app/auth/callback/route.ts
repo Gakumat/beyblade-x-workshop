@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
+import { isAllowedEmail } from "@/lib/admin-email";
 import { createClient } from "@/lib/supabase/server";
 
 // Handles both the token_hash link (works across browsers/devices) and the PKCE ?code= flow.
@@ -23,8 +24,7 @@ export async function GET(request: NextRequest) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const allowed = (process.env.ALLOWED_EMAIL ?? "").trim().toLowerCase();
-    if (user?.email?.toLowerCase() === allowed) return NextResponse.redirect(`${origin}/admin`);
+    if (isAllowedEmail(user?.email)) return NextResponse.redirect(`${origin}/admin`);
     await supabase.auth.signOut();
   }
   return NextResponse.redirect(`${origin}/login`);

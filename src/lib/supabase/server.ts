@@ -2,6 +2,7 @@ import "server-only";
 
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { isAllowedEmail } from "../admin-email";
 
 export const hasSupabase = () => !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -37,8 +38,7 @@ export async function isAdmin(): Promise<boolean> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  const allowed = (process.env.ALLOWED_EMAIL ?? "").trim().toLowerCase();
-  return !!user?.email && allowed !== "" && user.email.toLowerCase() === allowed;
+  return isAllowedEmail(user?.email);
 }
 
 export async function requireAdmin() {

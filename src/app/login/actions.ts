@@ -2,19 +2,17 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { allowedEmails, isAllowedEmail } from "@/lib/admin-email";
 import { createClient, hasSupabase } from "@/lib/supabase/server";
 
 export type LoginState = { step: "email" | "sent"; email?: string; error?: string };
 
-function isAllowed(email: string) {
-  const allowed = (process.env.ALLOWED_EMAIL ?? "").trim().toLowerCase();
-  return allowed !== "" && email === allowed;
-}
-
 export async function sendLink(_prev: LoginState, form: FormData): Promise<LoginState> {
   const email = String(form.get("email") ?? "").trim().toLowerCase();
   if (!hasSupabase()) return { step: "email", email, error: "Supabase isn't configured yet." };
-  if (!isAllowed(email)) return { step: "email", email, error: "That email isn't the admin." };
+  if (!allowedEmails().length)
+    return { step: "email", email, error: "ALLOWED_EMAIL isn't set on the server. Add it in Vercel → Settings → Environment Variables, then redeploy." };
+  if (!isAllowedEmail(email)) return { step: "email", email, error: "That email isn't the admin." };
   const h = await headers();
   const origin = h.get("origin") ?? `https://${h.get("host")}`;
   const supabase = await createClient();
