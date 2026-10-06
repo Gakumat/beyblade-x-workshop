@@ -1,0 +1,197 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-pixel);
+    --font-pixel: var(--font-pixel);
+    --font-display: var(--font-display);
+    --color-attack: var(--type-attack);
+    --color-defense: var(--type-defense);
+    --color-stamina: var(--type-stamina);
+    --color-balance: var(--type-balance);
+    --font-sans: var(--font-sans);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Game Boy day: warm paper, ink outlines, arcade accents. */
+:root {
+    --background: #f3ead2;
+    --foreground: #1d1733;
+    --card: #fffaf0;
+    --card-foreground: #1d1733;
+    --popover: #fffaf0;
+    --popover-foreground: #1d1733;
+    --primary: #d92b46;
+    --primary-foreground: #fffaf0;
+    --secondary: #2f62d0;
+    --secondary-foreground: #fffaf0;
+    --muted: #e6dcc0;
+    --muted-foreground: #5b5170;
+    --accent: #ffc93c;
+    --accent-foreground: #1d1733;
+    --destructive: #c2213b;
+    --border: #1d1733;
+    --input: #1d1733;
+    --ring: #1d1733;
+    --chart-1: #d92b46;
+    --chart-2: #2f62d0;
+    --chart-3: #17995a;
+    --chart-4: #9b51c9;
+    --chart-5: #ffc93c;
+    --radius: 0rem;
+    --type-attack: #d92b46;
+    --type-defense: #2f62d0;
+    --type-stamina: #17995a;
+    --type-balance: #9b51c9;
+    --stage: #cfc3a1;
+    --stage-line: #1d1733;
+    --default-inner-border-color: #e6dcc0;
+    --sidebar: #fffaf0;
+    --sidebar-foreground: #1d1733;
+    --sidebar-primary: #d92b46;
+    --sidebar-primary-foreground: #fffaf0;
+    --sidebar-accent: #e6dcc0;
+    --sidebar-accent-foreground: #1d1733;
+    --sidebar-border: #1d1733;
+    --sidebar-ring: #1d1733;
+}
+
+/* CRT night: deep indigo, neon accents, light pixel outlines. */
+.dark {
+    --background: #120f24;
+    --foreground: #f2ecff;
+    --card: #1f1940;
+    --card-foreground: #f2ecff;
+    --popover: #1f1940;
+    --popover-foreground: #f2ecff;
+    --primary: #ff4d6d;
+    --primary-foreground: #120f24;
+    --secondary: #5b8bff;
+    --secondary-foreground: #120f24;
+    --muted: #2a2352;
+    --muted-foreground: #b9aee0;
+    --accent: #ffd23f;
+    --accent-foreground: #120f24;
+    --destructive: #ff4d6d;
+    --border: #f2ecff;
+    --input: #f2ecff;
+    --ring: #f2ecff;
+    --type-attack: #ff4d6d;
+    --type-defense: #5b8bff;
+    --type-stamina: #3ddc84;
+    --type-balance: #c47dff;
+    --stage: #1a1538;
+    --stage-line: #5b8bff;
+    --default-inner-border-color: #2a2352;
+    --sidebar: #1f1940;
+    --sidebar-foreground: #f2ecff;
+    --sidebar-primary: #ff4d6d;
+    --sidebar-primary-foreground: #120f24;
+    --sidebar-accent: #2a2352;
+    --sidebar-accent-foreground: #f2ecff;
+    --sidebar-border: #f2ecff;
+    --sidebar-ring: #f2ecff;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+}
+/* ---------- Retro game layer ---------- */
+html { background: var(--background); }
+body { font-family: var(--font-sans), system-ui, sans-serif; line-height: 1.55; }
+
+/* Pixelact's pixel font defaults to Press Start 2P; we use the more readable Pixelify Sans for UI text. */
+.pixel-font { font-family: var(--font-pixel), monospace; letter-spacing: 0.02em; line-height: 1.35; }
+.font-display { font-family: var(--font-display), monospace; letter-spacing: 0.04em; line-height: 1.5; }
+.font-pixel { font-family: var(--font-pixel), monospace; }
+
+/* Chunky pixel frame (4px stepped border) without images. */
+.px-box {
+  background: var(--card);
+  color: var(--card-foreground);
+  box-shadow:
+    -4px 0 0 0 var(--ring), 4px 0 0 0 var(--ring),
+    0 -4px 0 0 var(--ring), 0 4px 0 0 var(--ring),
+    inset -4px -4px 0 0 color-mix(in srgb, var(--card) 80%, #000);
+  margin: 4px;
+}
+.px-box-flat {
+  background: var(--card);
+  box-shadow: -4px 0 0 0 var(--ring), 4px 0 0 0 var(--ring), 0 -4px 0 0 var(--ring), 0 4px 0 0 var(--ring);
+  margin: 4px;
+}
+.px-press { transition: transform 80ms steps(2); }
+.px-press:active { transform: translateY(3px); }
+
+/* Sprites are baked at low res and upscaled; keep them crisp. */
+.sprite { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* Very light CRT scanlines, dark theme only. */
+.dark body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 3px);
+  z-index: 50;
+}
+
+.type-attack { --type: var(--type-attack); }
+.type-defense { --type: var(--type-defense); }
+.type-stamina { --type: var(--type-stamina); }
+.type-balance { --type: var(--type-balance); }
+
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 1s steps(1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}

@@ -1,0 +1,5 @@
+{
+  "_note": "Hand corrections applied after scraping, keyed by part slug or 'product:<slug>'. Every entry needs a source URL. Only set fields you have a source for; anything else stays unknown.",
+  "parts": {},
+  "products": {}
+}

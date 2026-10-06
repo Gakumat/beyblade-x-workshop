@@ -1,0 +1,32 @@
+name: scrape
+
+# Started from the app's /admin page (workflow_dispatch via the GitHub API) or by hand from the Actions tab.
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Keep the HTTP + image cache between runs so re-scrapes are quick and polite.
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: scrape-cache-${{ github.run_id }}
+          restore-keys: scrape-cache-
+      - run: npm run scrape
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          ALLOWED_EMAIL: ${{ secrets.ALLOWED_EMAIL }}
